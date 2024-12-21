@@ -1,96 +1,539 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health-Care Chat</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Premium Health Assistant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            --primary: #00b4d8;
+            --secondary: #48cae4;
+            --accent: #90e0ef;
+            --text: #caf0f8;
+            --dark: #03045e;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --hover-bg: rgba(255, 255, 255, 0.1);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text);
+            padding: 2rem;
+        }
+
+        .app-container {
+            display: flex;
+            gap: 2rem;
+            max-width: 1800px;
+            width: 100%;
+            height: 90vh;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding-right: 2rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 15px;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--hover-bg);
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        /* Main Chat Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            max-width: 80%;
+            align-items: flex-start;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+        }
+
+        .user-message {
+            flex-direction: row-reverse;
+            align-self: flex-end;
+        }
+
+        .message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            position: relative;
+            word-wrap: break-word;
+            min-width: 100px;
+        }
+
+        .bot-message .message-content {
+            background: var(--card-bg);
+            border-bottom-left-radius: 5px;
+            color: var(--text);
+        }
+
+        .user-message .message-content {
+            background: var(--primary);
+            border-bottom-right-radius: 5px;
+            color: var(--dark);
+        }
+
+        .message-content p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Typing Indicator Styling */
+        .typing-indicator {
+            display: none;
+            padding: 1rem;
+            gap: 0.5rem;
+            align-items: center;
+            align-self: flex-start;
+            margin-left: 60px; /* Align with bot messages */
+            background: var(--card-bg);
+            border-radius: 20px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: typing 1s infinite ease-in-out;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-button {
+            padding: 0.8rem;
+            border-radius: 12px;
+            border: none;
+            background: var(--card-bg);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-button:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 1rem;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            animation: slideUp 0.3s ease;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .bot-message .message-content {
+            background: var(--card-bg);
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            flex-direction: row-reverse;
+        }
+
+        .user-message .message-content {
+            background: var(--primary);
+            color: var(--dark);
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-input {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+        }
+
+        .message-input input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .message-input button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            background: var(--primary);
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .message-input button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Right Panel */
+        .right-panel {
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding-left: 2rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .health-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: var(--hover-bg);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        .upcoming-appointments {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 20px;
+        }
+
+        .appointment-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .appointment-item:hover {
+            transform: translateX(5px);
+            background: var(--hover-bg);
+        }
+
+        .appointment-icon {
+            padding: 1rem;
+            background: var(--primary);
+            border-radius: 12px;
+            color: var(--dark);
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .app-container {
+                padding: 1rem;
+            }
+            
+            .sidebar, .right-panel {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .sidebar, .right-panel {
+                width: 100%;
+                border: none;
+                padding: 0;
+            }
+            
+            .health-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
 <body>
-    <div class="appointment-container">
-        <div class="plus-icon" id="openSlide">
-            <i class="fas fa-calendar-plus"></i>
+    <div class="app-container">
+        <!-- Left Sidebar remains unchanged -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="avatar.webp" alt="Logo">
+                <h2>HealthAI</h2>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-comments"></i>
+                    Chat Assistant
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    Appointments
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-notes-medical"></i>
+                    Health Records
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-pills"></i>
+                    Medications
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user-doctor"></i>
+                    Find Doctors
+                </a>
+            </nav>
         </div>
 
-        <div class="appointment-slide" id="appointmentSlide">
-            <div class="slide-header">
-                <h3><i class="fas fa-calendar-day"></i> Book an Appointment</h3>
-                <button class="close-btn" id="closeSlide">
-                    <i class="fas fa-times"></i>
-                </button>
+        <!-- Main Chat Area with modified message handling -->
+        <div class="main-content">
+            <div class="chat-header">
+                <div>
+                    <h2>AI Health Assistant</h2>
+                    <p>Always here to help you</p>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-button">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button class="action-button">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button class="action-button">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
             </div>
-            <div class="slide-content">
-                <form id="appointmentForm">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
 
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+            <div class="chat-container">
+                <div class="messages" id="chat-box">
+                    <!-- Messages will be dynamically added here -->
+                    <div class="typing-indicator" id="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
 
-                    <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" required>
-
-                    <label for="date">Date:</label>
-                    <input type="date" id="date" name="date" required>
-
-                    <label for="time">Time:</label>
-                    <input type="time" id="time" name="time" required>
-
-                    <label for="disease">Disease:</label>
-                    <input type="text" id="disease" name="disease" required>
-
-                    <label for="notes">Notes:</label>
-                    <textarea id="notes" name="notes"></textarea>
-
-                    <button type="submit"><i class="fas fa-calendar-check"></i> Book Appointment</button>
-                </form>
-
-                <!-- Call Now Button -->
-                <div class="call-now">
-                    <p><i class="fas fa-phone-alt"></i> Need immediate assistance?</p>
-                    <a href="tel:+1234567890" class="call-button"><i class="fas fa-phone"></i> Call Now</a>
+                <div class="message-input">
+                    <input type="text" id="user-input" placeholder="Type your message here...">
+                    <button onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                        Send
+                    </button>
                 </div>
             </div>
         </div>
 
-        <div class="appointment-list" id="appointmentList">
-            <h3><i class="fas fa-list"></i> Your Appointments</h3>
-            <!-- Appointments will be listed here -->
-        </div> 
+        <!-- Right Panel remains unchanged -->
+        <div class="right-panel">
+            <div class="health-stats">
+                <div class="stat-card">
+                    <i class="fas fa-heart"></i>
+                    <div class="stat-value">72</div>
+                    <p>Heart Rate</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-lungs"></i>
+                    <div class="stat-value">98%</div>
+                    <p>Oxygen</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-bed"></i>
+                    <div class="stat-value">7.5h</div>
+                    <p>Sleep</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-walking"></i>
+                    <div class="stat-value">8.2k</div>
+                    <p>Steps</p>
+                </div>
+            </div>
 
-        <div class="location">
-            <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d11101.90480959484!2d77.6569564230821!3d12.861451285757102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1shospitals%20near%20me%20!5e1!3m2!1sen!2sin!4v1725043913905!5m2!1sen!2sin">    
-            </iframe>
-        </div>
-    </div>
+            <div class="upcoming-appointments">
+                <h3>Upcoming Appointments</h3>
+                
+                <div class="appointment-item">
+                    <div class="appointment-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div>
+                        <h4>Dr. Sarah Johnson</h4>
+                        <p>General Checkup</p>
+                        <small>Tomorrow, 10:00 AM</small>
+                    </div>
+                </div>
 
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>HealthBot</h2>
-            <p>Your virtual health assistant</p>
-        </div>
-        <div class="chat-box" id="chat-box">
-            <!-- Bot's health tip of the day -->
-            <div class="chat-message bot-message" id="health-tip">
-                "Health Tip: Drink at least 8 glasses of water a day to stay hydrated!"
+                <div class="appointment-item">
+                    <div class="appointment-icon">
+                        <i class="fas fa-tooth"></i>
+                    </div>
+                    <div>
+                        <h4>Dr. Mike Wilson</h4>
+                        <p>Dental Cleaning</p>
+                        <small>Dec 23, 2:30 PM</small>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="input-box">
-            <input type="text" id="user-input" placeholder="Type your symptoms here..." autocomplete="on">
-            <button onclick="sendMessage()">Send</button>
-        </div>
     </div>
-
-    <script>
-        <!--     script codes             -->
-    </script>
-
-    <script src="script.js"></script>
-    <script src="nhs_scrape.js"></script>
 </body>
-
+<script src="script.js"></script>
 </html>
