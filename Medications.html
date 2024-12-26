@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/Medication.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="avatar.webp" alt="Logo">
+                <h2>HealthAI</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-comments"></i>
+                    Chat Assistant
+                </a>
+                <a href="Appoiments.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    Appointments
+                </a>
+                <a href="HealthRecords.html" class="nav-link">
+                    <i class="fas fa-notes-medical"></i>
+                    Health Records
+                </a>
+                <a href="Medications.html" class="nav-link active">
+                    <i class="fas fa-pills"></i>
+                    Medications
+                </a>
+                <a href="FindDoctors.html" class="nav-link">
+                    <i class="fas fa-user-doctor"></i>
+                    Find Doctors
+                </a>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <div class="medications-header">
+                <h1>Manage Medications</h1>
+                <div class="search-bar">
+                    <input type="text" id="searchMedication" placeholder="Search medications...">
+                    <span class="reminder-badge">Next reminder: 2h 30m</span>
+                </div>
+            </div>
+
+            <div id="success-message" class="success-message">
+                Medication added successfully!
+            </div>
+
+            <div class="medications-container">
+                <div class="medication-form">
+                    <form id="medicationForm">
+                        <div class="form-group">
+                            <label><i class="fas fa-prescription-bottle-alt"></i> Medication Name</label>
+                            <input type="text" id="medName" placeholder="Enter medication name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-tablets"></i> Dosage</label>
+                            <input type="text" id="dosage" placeholder="Enter dosage" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> Frequency</label>
+                            <select id="frequency" required>
+                                <option value="">Select frequency</option>
+                                <option value="daily">Once Daily</option>
+                                <option value="twice">Twice Daily</option>
+                                <option value="thrice">Three Times Daily</option>
+                                <option value="asneeded">As Needed</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> Schedule Times</label>
+                            <div id="scheduleTimes" class="schedule-times"></div>
+                            <button type="button" class="add-time-btn" id="addTimeBtn">
+                                <i class="fas fa-plus"></i> Add Time
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-sticky-note"></i> Notes</label>
+                            <textarea id="notes" rows="3" placeholder="Add any special instructions or notes..."></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-check"></i> Add Medication
+                        </button>
+                    </form>
+                </div>
+
+                <div class="med-list-container">
+                    <h2><i class="fas fa-list"></i> My Medications</h2>
+                    <div id="medicationsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/backend/Medication.js"></script>
+<script></script>
+</html>
