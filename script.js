@@ -1,5 +1,7 @@
 // GROQ API Configuration
-const GROQ_API_KEY = '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';
+// IMPORTANT: Store your API key securely. Do not hardcode it in client-side code.
+// Consider using environment variables or a backend proxy.
+const GROQ_API_KEY = 'YOUR_GROQ_API_KEY';
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 // File handling configurations
