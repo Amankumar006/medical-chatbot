@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Doctors - HealthAI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="FindDoctors.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="avatar.webp" alt="Logo">
+                <h2>HealthAI</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-comments"></i>
+                    Chat Assistant
+                </a>
+                <a href="Appoiments.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    Appointments
+                </a>
+                <a href="HealthRecords.html" class="nav-link">
+                    <i class="fas fa-notes-medical"></i>
+                    Health Records
+                </a>
+                <a href="Medications.html" class="nav-link">
+                    <i class="fas fa-pills"></i>
+                    Medications
+                </a>
+                <a href="FindDoctors.html" class="nav-link active">
+                    <i class="fas fa-user-doctor"></i>
+                    Find Doctors
+                </a>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <div class="doctors-header">
+                <h1><i class="fas fa-user-doctor"></i> Find Healthcare Providers</h1>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalDoctors">0</span>
+                        <span class="stat-label">Available Doctors</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="specialtiesCount">0</span>
+                        <span class="stat-label">Specialties</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-section">
+                <div class="search-container">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="doctorSearch" placeholder="Search by name, specialty, or condition...">
+                        <button class="clear-search" id="clearSearch">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <label for="specialtyFilter">Specialty</label>
+                            <select id="specialtyFilter">
+                                <option value="">All Specialties</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="locationFilter">Location</label>
+                            <select id="locationFilter">
+                                <option value="">All Locations</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="ratingFilter">Rating</label>
+                            <select id="ratingFilter">
+                                <option value="">All Ratings</option>
+                                <option value="5">5 Stars</option>
+                                <option value="4">4+ Stars</option>
+                                <option value="3">3+ Stars</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="availabilityFilter">Availability</label>
+                            <select id="availabilityFilter">
+                                <option value="">Any Time</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doctors-container">
+                <div class="doctors-grid" id="doctorsGrid">
+                    <!-- Doctor cards will be populated here -->
+                </div>
+                
+                <div class="no-results" id="noResults" style="display: none;">
+                    <i class="fas fa-user-md"></i>
+                    <h3>No doctors found</h3>
+                    <p>Try adjusting your search criteria or filters</p>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <button class="page-btn" id="prevPage" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button class="page-btn" id="nextPage">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Profile Modal -->
+    <div class="modal-overlay" id="doctorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalDoctorName">Dr. Name</h2>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Doctor details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message">
+        Appointment request sent successfully!
+    </div>
+
+    <script src="FindDoctors.js"></script>
+</body>
+</html>
