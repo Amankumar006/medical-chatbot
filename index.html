@@ -12,7 +12,6 @@
 
 <body>
     <div class="app-container">
-        <!-- Left Sidebar remains unchanged -->
         <div class="sidebar">
             <div class="logo">
                 <img src="avatar.webp" alt="Logo">
@@ -20,30 +19,14 @@
             </div>
 
             <nav class="nav-menu">
-                <a href="#" class="nav-link active">
-                    <i class="fas fa-comments"></i>
-                    Chat Assistant
-                </a>
-                <a href="Appoiments.html" class="nav-link">
-                    <i class="fas fa-calendar-check"></i>
-                    Appointments
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-notes-medical"></i>
-                    Health Records
-                </a>
-                <a href="Medications.html" class="nav-link">
-                    <i class="fas fa-pills"></i>
-                    Medications
-                </a>
-                <a href="FindDoctors.html" class="nav-link">
-                    <i class="fas fa-user-doctor"></i>
-                    Find Doctors
-                </a>
+                <a href="#" class="nav-link active"><i class="fas fa-comments"></i>Chat Assistant</a>
+                <a href="Appoiments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments</a>
+                <a href="#" class="nav-link"><i class="fas fa-notes-medical"></i>Health Records</a>
+                <a href="Medications.html" class="nav-link"><i class="fas fa-pills"></i>Medications</a>
+                <a href="FindDoctors.html" class="nav-link"><i class="fas fa-user-doctor"></i>Find Doctors</a>
             </nav>
         </div>
 
-        <!-- Main Chat Area with modified message handling -->
         <div class="main-content">
             <div class="chat-header">
                 <div>
@@ -51,62 +34,37 @@
                     <p>Always here to help you</p>
                 </div>
                 <div class="quick-actions">
-                    <button class="action-button">
-                        <i class="fas fa-video"></i>
-                    </button>
-                    <button class="action-button">
-                        <i class="fas fa-phone"></i>
-                    </button>
-                    <button class="action-button">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
+                    <button class="action-button" aria-label="Video call"><i class="fas fa-video"></i></button>
+                    <button class="action-button" aria-label="Phone call"><i class="fas fa-phone"></i></button>
+                    <button class="action-button" aria-label="Menu"><i class="fas fa-ellipsis-v"></i></button>
                 </div>
             </div>
 
-            <!-- Chat Interface -->
             <div class="chat-interface">
-                <!-- Chat Messages Container -->
-                <div id="chat-box" class="chat-messages">
-                    <!-- Example message structure for reference -->
-                    <div class="message assistant-message">
-                            <div class="message-header">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="chat-box" class="chat-messages" aria-live="polite"></div>
 
-                <!-- Typing Indicator -->
-                <div id="typing-indicator" class="typing-indicator">
-                    <div class="typing-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                <div id="typing-indicator" class="typing-indicator" style="display:none;">
+                    <div class="typing-dots"><span></span><span></span><span></span></div>
                     <span class="typing-text">AI Assistant is typing...</span>
                 </div>
 
-                <!-- Input Container -->
+                <div id="citations" class="citations"></div>
+
                 <div class="chat-input-container">
                     <div class="input-wrapper">
                         <input type="text" id="user-input" placeholder="Type your health-related question here..."
                             aria-label="Chat input">
                         <div class="input-actions">
-                            <button class="action-btn" aria-label="Attach file">
-                                <i class="fas fa-paperclip"></i>
-                            </button>
-                            <button id="send-button" class="send-btn">
-                                <i class="fas fa-paper-plane"></i>
-                                <span>Send</span>
-                            </button>
+                            <button class="action-btn" aria-label="Attach file"><i class="fas fa-paperclip"></i></button>
+                            <button id="send-button" class="send-btn"><i class="fas fa-paper-plane"></i><span>Send</span></button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
+    <script type="module" src="js/app/main.js"></script>
 </body>
-<script src="js/chatbot-engine.js"></script>
-<script src="js/chat-ui-enhancements.js"></script>
-<script src="script.js"></script>
 
 </html>
-
