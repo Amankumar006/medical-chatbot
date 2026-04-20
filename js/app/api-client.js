@@ -25,3 +25,7 @@ export function chat(message) {
 export function analyzeUpload(content, fileName) {
   return post('/api/upload/analyze', { content, fileName });
 }
+
+export function retrieve(message) {
+  return post('/api/retrieve', { message });
+}

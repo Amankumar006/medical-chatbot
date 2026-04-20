@@ -9,8 +9,8 @@ test('triage flags emergency chest pain', () => {
   assert.equal(result.riskLevel, 'high');
 });
 
-test('retrieval returns flu context', () => {
-  const result = retrieveContext('I have flu fever and cough');
+test('hybrid retrieval returns flu context for mixed symptom query', () => {
+  const result = retrieveContext('I have influenza with fever and cough');
   assert.ok(result.length > 0);
   assert.equal(result[0].topic, 'flu');
 });
