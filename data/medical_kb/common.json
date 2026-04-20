@@ -1,0 +1,23 @@
+[
+  {
+    "id": "flu-care",
+    "topic": "flu",
+    "keywords": ["flu", "influenza", "fever", "body ache", "cough"],
+    "summary": "For flu-like illness, rest, hydration, fever control, and monitoring breathing are common first steps. Seek urgent care for breathing issues, confusion, chest pain, or dehydration.",
+    "source": "CDC seasonal flu guidance"
+  },
+  {
+    "id": "bp-emergency",
+    "topic": "blood pressure",
+    "keywords": ["blood pressure", "hypertension", "headache", "vision changes"],
+    "summary": "Severely high blood pressure with neurologic or chest symptoms may be an emergency and needs immediate medical evaluation.",
+    "source": "AHA hypertensive crisis guidance"
+  },
+  {
+    "id": "diabetes-hypoglycemia",
+    "topic": "diabetes",
+    "keywords": ["diabetes", "low sugar", "hypoglycemia", "dizzy", "sweaty"],
+    "summary": "Low blood sugar often needs rapid carbohydrates and recheck. Severe symptoms like confusion or unconsciousness require emergency help.",
+    "source": "ADA hypoglycemia guidance"
+  }
+]
