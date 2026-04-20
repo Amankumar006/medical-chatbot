@@ -2,11 +2,11 @@
 
 This project is a browser-based medical assistant built with HTML/CSS/JS frontend and a Node.js API backend.
 
-## What changed
+## What changed (1 → 5)
 1. **Backend API layer**: model calls moved to Express routes.
-2. **Validation + rate limiting**: schema-style payload guards and in-memory request throttling.
-3. **Hybrid retrieval**: lexical keyword + semantic token expansion scoring.
-4. **Single orchestration path**: frontend now calls only `/api/chat` for chat flow.
+2. **Frontend modularization**: chat logic split into ES modules.
+3. **Safety + triage**: server-side emergency risk checks before answering; validation + rate limiting middleware.
+4. **Retrieval + citations**: KB-backed hybrid (lexical + semantic) retrieval and source list with responses.
 5. **Tests**: smoke tests for triage, retrieval, validation, and rate limiting.
 
 ## Run locally

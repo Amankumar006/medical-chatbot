@@ -1,4 +1,4 @@
-import { chat } from './api-client.js';
+import { chat, triageMessage } from './api-client.js';
 import { addMessageToChat, hideTypingIndicator, setCitations, showTypingIndicator } from './ui.js';
 
 export async function handleSendMessage() {
@@ -11,6 +11,13 @@ export async function handleSendMessage() {
   showTypingIndicator();
 
   try {
+    const triage = await triageMessage(message);
+    if (triage.emergency) {
+      addMessageToChat('⚠️ This appears urgent. Call emergency services immediately.', 'bot-message');
+      setCitations([]);
+      return;
+    }
+
     const response = await chat(message);
     addMessageToChat(response.answer || 'No response available.', 'bot-message');
     setCitations(response.citations || []);

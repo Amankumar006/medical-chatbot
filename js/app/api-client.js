@@ -14,6 +14,10 @@ async function post(path, payload) {
   return response.json();
 }
 
+export function triageMessage(message) {
+  return post('/api/triage', { message });
+}
+
 export function chat(message) {
   return post('/api/chat', { message });
 }
